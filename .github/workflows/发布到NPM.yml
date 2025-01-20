@@ -19,6 +19,9 @@ jobs:
       run: npm cache clean --force
     - name: 安装依赖
       run: npm install --loglevel verbose # 添加详细的日志级别
+    - name: 修改 package.json 中的版本号
+      run: |
+        node -e "const fs = require('fs'); let pkg = JSON.parse(fs.readFileSync('./package.json')); pkg.version = '2.1.4'; fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));"
     - name: 发布到 npm
       run: npm publish --access public # 明确发布访问权限
       env:
@@ -26,9 +29,9 @@ jobs:
     - name: 检查发布结果
       run: |
         if [ $? -eq 0 ]; then
-          echo "Package published successfully."
+          echo "包发布成功。"
         else
-          echo "Package publishing failed. Check the logs for details."
+          echo "包发布失败。请查看日志了解详细信息。"
           exit 1
         fi
     - name: 查看 npm 日志

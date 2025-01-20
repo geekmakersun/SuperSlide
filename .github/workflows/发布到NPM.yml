@@ -18,7 +18,7 @@ jobs:
     - name: 清理 npm 缓存
       run: npm cache clean --force
     - name: 清理 GitHub Actions 缓存
-      uses: actions/cache@v2
+      uses: actions/cache@v4  # 使用最新的 actions/cache 版本
       with:
         path: |
           ~/.npm
@@ -27,9 +27,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - name: 安装依赖
-      run: npm install --loglevel verbose # 添加详细的日志级别
+      run: npm install
     - name: 发布到 npm
-      run: npm publish --access public # 明确发布访问权限
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # 从 GitHub Secrets 中获取 npm 认证令牌
     - name: 检查发布结果
@@ -40,7 +40,3 @@ jobs:
           echo "包发布失败。请查看日志了解详细信息。"
           exit 1
         fi
-    - name: 查看 npm 日志
-      run: cat /home/runner/.npm/_logs/*-debug-*.log # 查看 npm 日志文件
-    - name: 查看 GitHub Actions 日志
-      run: cat /home/runner/_work/_temp/_github_workflow/*-debug-*.log # 查看 GitHub Actions 日志文件

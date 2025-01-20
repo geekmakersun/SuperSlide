@@ -15,9 +15,21 @@ jobs:
       with:
         node-version: latest
         registry-url: https://registry.npmjs.org
+    - name: 清理 npm 缓存
+      run: npm cache clean --force
     - name: 安装依赖
-      run: npm install
+      run: npm install --loglevel verbose # 添加详细的日志级别
     - name: 发布到 npm
-      run: npm publish
+      run: npm publish --access public # 明确发布访问权限
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # 从 GitHub Secrets 中获取 npm 认证令牌
+    - name: 检查发布结果
+      run: |
+        if [ $? -eq 0 ]; then
+          echo "Package published successfully."
+        else
+          echo "Package publishing failed. Check the logs for details."
+          exit 1
+        fi
+    - name: 查看 npm 日志
+      run: cat /home/runner/.npm/_logs/*-debug-*.log # 查看 npm 日志文件

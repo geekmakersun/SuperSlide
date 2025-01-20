@@ -15,21 +15,18 @@ jobs:
       with:
         node-version: latest
         registry-url: https://registry.npmjs.org
-    - name: 清理 npm 缓存
-      run: npm cache clean --force
-    - name: 清理 GitHub Actions 缓存
-      uses: actions/cache@v4  # 使用最新的 actions/cache 版本
-      with:
-        path: |
-          ~/.npm
-          **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
     - name: 安装依赖
       run: npm install
-    - name: 发布到 npm
-      run: npm publish --access public
+    - name: 获取 package.json 中的版本号
+      id: version
+      run: echo "::set-output name=version::$(node -e "console.log(require('./package.json').version)")"
+    - name: 检查包是否已发布
+      run: |
+        if npm view super-slide@${{ steps.version.outputs.version }} version; then
+          echo "版本 ${{ steps.version.outputs.version }} 已发布，跳过发布操作。"
+        else
+          npm publish --access public
+        fi
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # 从 GitHub Secrets 中获取 npm 认证令牌
     - name: 检查发布结果

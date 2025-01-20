@@ -17,11 +17,17 @@ jobs:
         registry-url: https://registry.npmjs.org
     - name: 清理 npm 缓存
       run: npm cache clean --force
+    - name: 清理 GitHub Actions 缓存
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
     - name: 安装依赖
       run: npm install --loglevel verbose # 添加详细的日志级别
-    - name: 修改 package.json 中的版本号
-      run: |
-        node -e "const fs = require('fs'); let pkg = JSON.parse(fs.readFileSync('./package.json')); pkg.version = '2.1.4'; fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));"
     - name: 发布到 npm
       run: npm publish --access public # 明确发布访问权限
       env:
@@ -36,3 +42,5 @@ jobs:
         fi
     - name: 查看 npm 日志
       run: cat /home/runner/.npm/_logs/*-debug-*.log # 查看 npm 日志文件
+    - name: 查看 GitHub Actions 日志
+      run: cat /home/runner/_work/_temp/_github_workflow/*-debug-*.log # 查看 GitHub Actions 日志文件

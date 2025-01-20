@@ -1,0 +1,31 @@
+{
+	"name": "ckplayer",
+	"version": "2.1.0",
+	"description": "一款用于解决网站多数特效展示问题的软件",
+	"keywords": [
+		"SuperSlide",
+		"网站特效",
+		"焦点图",
+		"幻灯片",
+		"Tab 标签切换",
+		"图片滚动",
+		"无缝滚动",
+		"代码规范",
+		"代码冲突",
+		"插件",
+		"组合效果"
+	],
+	"homepage": "https://github.com/geekmakersun/SuperSlide#readme",
+	"bugs": {
+		"url": "https://github.com/geekmakersun/SuperSlide/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/geekmakersun/SuperSlide.git"
+	},
+	"license": "MIT",
+	"author": "大话主席",
+	"scripts": {
+		"publish": "npm publish"
+	}
+}

@@ -1,5 +1,5 @@
 {
-	"name": "SuperSlide",
+	"name": "super-slide",
 	"version": "2.1.1",
 	"description": "一款用于解决网站多数特效展示问题的软件",
 	"keywords": [
@@ -15,13 +15,13 @@
 		"插件",
 		"组合效果"
 	],
-	"homepage": "https://github.com/geekmakersun/SuperSlide#readme",
+	"homepage": "https://github.com/geekmakersun/super-slide#readme",
 	"bugs": {
-		"url": "https://github.com/geekmakersun/SuperSlide/issues"
+		"url": "https://github.com/geekmakersun/super-slide/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/geekmakersun/SuperSlide.git"
+		"url": "git+https://github.com/geekmakersun/super-slide.git"
 	},
 	"license": "MIT",
 	"author": "大话主席",
